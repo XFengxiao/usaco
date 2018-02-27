@@ -21,10 +21,10 @@ p = p + num + 1
 # print p
 
 while True:
-    if p >= len(message):
+    if p >= len(message) - 1:
         break
     else:
-        num_1, num_2 = [int(num) for num in (message[p+1].split(' '))]
+        num_1, num_2 = [int(n) for n in (message[p+1].split(' '))]
         l = []
         l.append(message[p])
         l.append(num_1)
@@ -55,5 +55,5 @@ for g in group:
     dealing_money(*g)
 
 with open('gift1.out', 'w') as fout:
-    for name, m in np.items():
-        fout.write(name + ' ' + str(m) + '\n')
+    for i in range(num):
+        fout.write(message[i+1] + ' ' + str(np[message[i+1]]) + '\n')
