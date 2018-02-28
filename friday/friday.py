@@ -25,7 +25,7 @@ assert(N>0 and N<=400)
 
 days = [0] * 7
 
-week = 6
+week = 0
 
 for i in range(1900, 1900+N):
     for j in range(1, 13):
@@ -33,7 +33,6 @@ for i in range(1900, 1900+N):
         week += get_days(i, j)
 
 with open('friday.out', 'w') as fout:
-    fout.write(str(days[6]) + " ")
-    for i in range(5):
-        fout.write(str(days[i]) + " ")
-    fout.write(str(days[5]) + "\n")
+    for p in range(6):
+        fout.write(str(days[p]) + ' ')
+    fout.write(str(days[6]) + '\n')
