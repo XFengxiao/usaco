@@ -18,33 +18,23 @@ strings = data[1]
 # print strings
 # strings = "wwwbbrwrbrbrrbrbrwrwwrbwrwrrb"
 
-flag = ["r", "w"]
+b_index = strings.find('b')
+r_index = strings.find('r')
 
-b_index = strings.index('b')
-r_index = strings.index('r')
+# BEGIN = b_index if b_index > r_index else r_index
+if b_index == r_index == -1:
+    BEGIN = 0
+else:
+    BEGIN = b_index if b_index > r_index else r_index
 
-BEGIN = b_index if b_index > r_index else r_index
-strings = data[1] + strings[:BEGIN] + " "
+# set flag
+flag = ["r", "w"] if strings[BEGIN] == "r" else ["b", "w"]
 # strings = "wwwbbrwrbrbrrbrbrwrwwrbwrwrrb | wwwbb" + " "
+strings = data[1] + strings[:BEGIN] + " "
 # the pointer of strings
 p = BEGIN
 
 count = 0
-#for i in range(BEGIN, N):
-#    if i == N - 1:
-#        if strings[i] in flag:
-#            beads.append(strings[p:p+count+1])
-#        else:
-#            beads.append(strings[p:p+count])
-#            beads.append(strings[-1])
-#    else:
-#        if strings[i] in flag:
-#            count += 1
-#        else:
-#            beads.append(strings[p:p+count])
-#            p += count
-#            count = 1
-#            flag = ["b", "w"] if "r" in flag else ["r", "w"]
 for ch in strings[BEGIN:]:
     if ch in flag:
         count += 1
@@ -55,7 +45,6 @@ for ch in strings[BEGIN:]:
         flag = ["b", "w"] if "r" in flag else ["r", "w"]
 
 # beads = ['rwr', 'b', 'r', 'b', 'rr', 'b', 'r', 'b', 'rwrwwr', 'bw', 'rwrr', 'bwwwbb']
-print beads
 
 def my_len(d):
     # d --> index of beads
@@ -68,13 +57,15 @@ def my_len(d):
 
 def get_max(lst):
     max = 0
-    for i in range(len(beads)):
-        if i == 0:
-            max = my_len(0)
-        else:
+    if len(lst)<= 2:
+        for i in range(len(lst)):
+            max += len(lst[i])
+    else:
+        for i in range(len(lst)):
             max = my_len(i) if max < my_len(i) else max
     return max
 
 maximum = get_max(beads)
 
-print maximum
+with open("beads.out", "w") as fout:
+    fout.write(str(maximum) + "\n")
