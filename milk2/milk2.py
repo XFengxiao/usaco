@@ -1,4 +1,6 @@
-#!/usr/bin/env python # -*- coding: utf-8 -*-
+#!/usr/bin/env python 
+# -*- coding: utf-8 -*-
+
 """
 ID: xiaofen6 
 LANG: PYTHON2
