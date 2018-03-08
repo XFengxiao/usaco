@@ -7,16 +7,16 @@ LANG: PYTHON2
 PROG: palsquare
 """
 
-def progressive(num, d):
+def trans(num, base):
     mapping = ['0', '1', '2', '3', '4',
             '5', '6', '7', '8', '9',
             'A', 'B', 'C', 'D', 'E',
             'F', 'G', 'H', 'I', 'J']
     n = ''
-    number = num
-    while number > 0:
-        n = mapping[number%d] + n
-        number = number / d
+    temp = num
+    while temp > 0:
+        n = mapping[temp%base] + n
+        temp = temp / base
     return n
 
 def is_palsquare(s):
@@ -30,7 +30,7 @@ with open("palsquare.in", "r") as fin:
 
 with open("palsquare.out", "w") as fout:
     for i in range(1, 301):
-        foo = progressive(i*i, NUM)
-        foo_1 = progressive(i, NUM)
+        foo = trans(i*i, NUM)
+        foo_1 = trans(i, NUM)
         if is_palsquare(foo):
             fout.write(foo_1 + " " + foo + "\n")
