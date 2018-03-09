@@ -16,8 +16,6 @@ def trans(num, base):
         temp = temp / base
     return st
 
-print trans(5, 4)
-
 def is_pal(string):
     if string == string[::-1]:
         return True
@@ -34,24 +32,22 @@ def is_dualpal(num):
 
 def get_dualpal(n, s):
     pal = []
-    for i in range(s+1, 10001):
+    p = s
+    while True:
+        p += 1
         if len(pal) == n:
             return pal
         else:
-            if is_dualpal(i):
-                pal.append(i)
+            if is_dualpal(p):
+                pal.append(p)
 
 with open("dualpal.in", "r") as fin:
     N, S = fin.readline().strip().split()
     N = int(N)
     S = int(S)
 
-print N
-print S
-pali = get_dualpal(N, S)
-print pali
+pal = get_dualpal(N, S)
 
-#with open("dualpal.out", "w") as fout:
-#    if pal:
-#        for i in pal:
-#            fout.write(str(i) + "\n")
+with open("dualpal.out", "w") as fout:
+    for i in pal:
+        fout.write(str(i) + "\n")
