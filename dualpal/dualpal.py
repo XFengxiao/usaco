@@ -40,6 +40,7 @@ def get_dualpal(n, s):
         else:
             if is_dualpal(p):
                 pal.append(p)
+    return pal
 
 with open("dualpal.in", "r") as fin:
     N, S = fin.readline().strip().split()
