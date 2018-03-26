@@ -28,60 +28,50 @@ def my_sort(lis):
                 lis[j], lis[j+1] = lis[j+1], lis[j]
     return lis
 
-def get_S(M):
-    S = set()
+with open("ariprog.in", "r") as fin:
+    N = fin.readline().strip()
+    N = int(N)
+    M = fin.readline().strip()
+    M = int(M)
+
+def get_exist(M):
+    #S = set()
+    S = [0] * (2*M*M+1)
     exist = [0] * (2*M*M+1)
     for i in range(M+1):
         for j in range(M+1):
-            S.add(i*i + j*j)
+            #S.add(i*i + j*j)
+            S[i*i+j*j] = i*i + j*j
             exist[i*i+j*j] = 1
     return S, exist
 
+_S, _exist = get_exist(M)
+
+def check(a, b):
+    temp = a
+    for i in range(N):
+        if not _exist[temp]:
+            return False
+        temp += b
+    return True
+
 def get_sequences(N, S, exist):
     sequences = []
-    m = max(S)
-    for b in range(1, (m/(N-1))+1):
-        for a in S[:-N+1]:
-            count = 0
-            if a + (N-1) * b > m:
-                break
-            sequences.append([a,b])
-            #for n in range(N):
-            #    count += 1
-            #    #if exist[a+n*b]:
-            #    #    count += 1
-            #    #else:
-            #    #    break
-            #if count == N:
-            #    sequences.append([a,b])
+    for b in range(1, (S[-1]/(N-1))+1):
+        for a in range(len(exist)):
+            if exist[a]:
+                if S[a] + (N-1) * b > S[-1]:
+                    break
+                if check(a, b):
+                    sequences.append([S[a], b])
     return sequences
 
-if __name__ == "__main__":
-    import time
-    with open("ariprog.in", "r") as fin:
-        N = fin.readline().strip()
-        N = int(N)
-        M = fin.readline().strip()
-        M = int(M)
-
-    S, exist = get_S(M)
-    S = list(S)
-    S.sort()
-    print "b len ", (max(S)/(N-1))+1
-    print "S len ", len(S)
-    print "max S ", max(S)
-    #begin = time.time()
-    #sequences = get_sequences(N, S, exist)
-    ##print sequences
-    #end = time.time()
-    #print (end-begin)
-    
-
-    #sequences = get_sequences(N, S, exist)
-    #with open("ariprog.out", "w") as fout:
-    #    if not sequences:
-    #        fout.write("NONE" + "\n")
-    #    else:
-    #        for i, j in sequences:
-    #            fout.write(str(i) + ' ' + str(j) + '\n')
+sequences = get_sequences(N, _S, _exist)
+print sequences
+#with open("ariprog.out", "w") as fout:
+#    if not sequences:
+#        fout.write("NONE" + "\n")
+#    else:
+#        for i, j in sequences:
+#            fout.write(str(i) + ' ' + str(j) + '\n')
 
